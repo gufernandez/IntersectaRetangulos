@@ -66,9 +66,9 @@ calcArea(X1,Y1,X2,Y2,A) :- L is X2-X1, H is Y1-Y2, A is H*L.
 %R: valor para o x1 do retangulo de interseccao
 %F: flag que indica se houve interseccao
 xEsq(R1,R2,R,F) :-
-	rect(R1,X1,_,_,_),rect(R2,A1,_,A2,_), X1<A2, X1>A1, R is X1, F is 1.
+	rect(R1,X1,_,_,_),rect(R2,A1,_,A2,_), X1=<A2, X1>=A1, R is X1, F is 1.
 xEsq(R1,R2,R,F) :-
-	rect(R1,X1,_,X2,_),rect(R2,A1,_,_,_), A1<X2, A1>X1, R is A1, F is 1.
+	rect(R1,X1,_,X2,_),rect(R2,A1,_,_,_), A1=<X2, A1>=X1, R is A1, F is 1.
 xEsq(_,_,R,F) :- R is 0, F is 0. %Nao ocorre interseccao.
 
 %Obtem o valor do y1 do retangulo formado pela interseccao de M e N.
@@ -76,9 +76,9 @@ xEsq(_,_,R,F) :- R is 0, F is 0. %Nao ocorre interseccao.
 %R: valor para o y1 do retangulo de interseccao
 %F: flag que indica se houve interseccao
 ySup(R1,R2,R,F) :-
-	rect(R1,_,Y1,_,_),rect(R2,_,B1,_,B2), Y1<B1, Y1>B2, R is Y1, F is 1.
+	rect(R1,_,Y1,_,_),rect(R2,_,B1,_,B2), Y1=<B1, Y1>=B2, R is Y1, F is 1.
 ySup(R1,R2,R,F) :-
-	rect(R1,_,Y1,_,Y2),rect(R2,_,B1,_,_), B1<Y1, B1>Y2, R is B1, F is 1.
+	rect(R1,_,Y1,_,Y2),rect(R2,_,B1,_,_), B1=<Y1, B1>=Y2, R is B1, F is 1.
 ySup(_,_,R,F) :- R is 0, F is 0. %Nao ocorre interseccao.
 
 %Obtem o valor do x2 do retangulo formado pela interseccao de M e N.
@@ -86,13 +86,22 @@ ySup(_,_,R,F) :- R is 0, F is 0. %Nao ocorre interseccao.
 %R: valor para o x2 do retangulo de interseccao
 %*A Flag F nao eh necessaria aqui, pois as verificacoes
 % por xEsq e ySup ja sao suficientes.
-xDir(R1,R2,R) :- rect(R1,_,_,X2,_),rect(R2,A1,_,A2,_), X2<A2, X2>A1, R is X2.
-xDir(R1,R2,R) :- rect(R1,X1,_,X2,_),rect(R2,_,_,A2,_), A2<X2, A2>X1, R is A2.
+xDir(R1,R2,R) :- rect(R1,_,_,X2,_),rect(R2,A1,_,A2,_), X2=<A2, X2>=A1, R is X2.
+xDir(R1,R2,R) :- rect(R1,X1,_,X2,_),rect(R2,_,_,A2,_), A2=<X2, A2>=X1, R is A2.
 
 %Obtem o valor do y2 do retangulo formado pela interseccao de M e N.
 %ySup(M,N,R,F)
 %R: valor para o y2 do retangulo de interseccao
 %*A flag F nao eh necessaria aqui, pois as verficacoes
 % por xEsqu e ySup ja sao suficientes.
-yInf(R1,R2,R) :- rect(R1,_,_,_,Y2),rect(R2,_,B1,_,B2), Y2<B1, Y2>B2, R is Y2.
-yInf(R1,R2,R) :- rect(R1,_,Y1,_,Y2),rect(R2,_,_,_,B2), B2<Y1, B2>Y2, R is B2.
+yInf(R1,R2,R) :- rect(R1,_,_,_,Y2),rect(R2,_,B1,_,B2), Y2=<B1, Y2>=B2, R is Y2.
+yInf(R1,R2,R) :- rect(R1,_,Y1,_,Y2),rect(R2,_,_,_,B2), B2=<Y1, B2>=Y2, R is B2.
+
+
+
+
+
+
+
+
+
